@@ -33,10 +33,29 @@ app.get('/todos', (req, res) => {
 });
 
 // Get /todos/1234324
+// Answers
+// app.get('/todos/:id', (req, res) => {
+//   var id = req.params.id;
+//   // res.send(req.params);
+//   if (!ObjectID.isValid(id)) {
+//     return res.status(404).send();
+//   }
+//   Todo.findById(id).then((todo) => {
+//     if(!todo) {
+//       return res.status(404).send();
+//     }
+//     res.send({todo});
+//     console.log('Todo By Id', todo);
+//   }).catch((e) => {
+//     res.status(400).send(e);
+//   })
+// });
+
+// The second challenge trial on Feb. 17 2019.
 app.get('/todos/:id', (req, res) => {
   var id = req.params.id;
-  // res.send(req.params);
-  if (!ObjectID.isValid(id)) {
+
+  if(!ObjectID.isValid(id)) {
     return res.status(404).send();
   }
   Todo.findById(id).then((todo) => {
@@ -44,13 +63,10 @@ app.get('/todos/:id', (req, res) => {
       return res.status(404).send();
     }
     res.send({todo});
-    console.log('Todo By Id', todo);
   }).catch((e) => {
-    res.status(400).send(e);
-  })
+    res.status(400).send();
+  });
 });
-
-
 
 
 app.listen(3000, () => {
